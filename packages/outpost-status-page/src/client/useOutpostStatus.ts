@@ -7,7 +7,7 @@ export type UseOutpostStatusResult =
   | { status: 'ready'; data: OutpostStatusPageData; updatedAt: number }
   | { status: 'error'; error: string; data?: OutpostStatusPageData; updatedAt?: number };
 
-let POLL_INTERVAL_MS = 15_000;
+let POLL_INTERVAL_MS = 10_000;
 
 export let useOutpostStatus = (): UseOutpostStatusResult => {
   let [result, setResult] = useState<UseOutpostStatusResult>({ status: 'loading' });

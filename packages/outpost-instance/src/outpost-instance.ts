@@ -220,8 +220,6 @@ export class OutpostInstance {
       proxyPathsByAdapter.set(adapter.name, paths);
     }
 
-    // Every outpost always exposes a non-sensitive status page at its proxy root, whether or not
-    // any adapter has a proxy of its own -- so the proxy server is always started.
     let statusPage = createOutpostStatusPage({
       getData: () => ({
         outpostId,
@@ -233,7 +231,11 @@ export class OutpostInstance {
         baseUrl,
         startedAt,
         upstream: {
-          kind: options.upstreamUrl ? 'outpost' : 'metorial',
+          kind:
+            options.upstreamUrl &&
+            new URL(credential.endpoint).hostname !== new URL(options.upstreamUrl).hostname
+              ? 'outpost'
+              : 'metorial',
           host: new URL(auth.endpoint).host
         },
         services: [

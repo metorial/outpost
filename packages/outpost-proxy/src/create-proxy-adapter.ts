@@ -48,6 +48,13 @@ let defaultRewritePath = (adapterPath: string, path: string): string => {
 export let createProxyAdapter = (options: CreateProxyAdapterOptions): OutpostProxyAdapter => {
   let app = new Hono<{ Variables: ProxyAdapterVariables }>();
 
+  app.use(async (c, next) => {
+    c.res.headers.set('Server', 'Metorial Outpost');
+    await next();
+  });
+
+  app.notFound(c => c.text('Not Found', 404));
+
   app.all('/*', async c => {
     let request = c.req.raw;
     let url = new URL(request.url);
