@@ -8,6 +8,9 @@ export type CreateOutpostProxyOptions = {
 export let createOutpostProxy = (options: CreateOutpostProxyOptions): Hono => {
   let app = new Hono();
 
+  app.get('/ping', c => c.text('pong'));
+  app.get('/healthz', c => c.json({ status: 'ok' }));
+
   for (let adapter of sortOutpostProxyAdapters(options.adapters)) {
     app.route(adapter.path, adapter.app);
   }

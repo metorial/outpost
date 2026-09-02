@@ -56,4 +56,37 @@ describe('createOutpostProxy', () => {
     let res = await proxy.request('/abc/thing');
     expect(await res.text()).toBe('from abc');
   });
+
+  describe('built-in health checks', () => {
+    it('responds to GET /ping with "pong", with no adapters mounted', async () => {
+      let proxy = createOutpostProxy({ adapters: [] });
+
+      let res = await proxy.request('/ping');
+
+      expect(res.status).toBe(200);
+      expect(await res.text()).toBe('pong');
+    });
+
+    it('responds to GET /healthz with a JSON status, with no adapters mounted', async () => {
+      let proxy = createOutpostProxy({ adapters: [] });
+
+      let res = await proxy.request('/healthz');
+
+      expect(res.status).toBe(200);
+      expect(await res.json()).toEqual({ status: 'ok' });
+    });
+
+    it('is not shadowed by a "/" adapter that catches everything else', async () => {
+      let fallbackApp = new Hono();
+      fallbackApp.all('/*', c => c.text('from fallback'));
+
+      let proxy = createOutpostProxy({ adapters: [{ path: '/', app: fallbackApp }] });
+
+      let ping = await proxy.request('/ping');
+      let healthz = await proxy.request('/healthz');
+
+      expect(await ping.text()).toBe('pong');
+      expect(await healthz.json()).toEqual({ status: 'ok' });
+    });
+  });
 });

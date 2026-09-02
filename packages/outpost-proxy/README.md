@@ -43,6 +43,13 @@ export default { fetch: proxy.fetch, port: 8080 };
 sorted from most to least specific path -- a `/` adapter, if present, always matches last so it
 can act as a catch-all fallback.
 
+## Health checks
+
+Every proxy always answers `GET /ping` (`pong`, `text/plain`) and `GET /healthz`
+(`{"status":"ok"}`), regardless of which adapters are mounted -- the common paths load balancers,
+orchestrators, and uptime checks probe by convention. These are exact routes, so they always win
+over a `/` adapter's own catch-all, no matter the registration order.
+
 ## Adapters
 
 An `OutpostProxyAdapter` is just `{ path, app }`. Since a Hono app's `.fetch` is already a
