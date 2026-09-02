@@ -1,4 +1,4 @@
-import { BaseLogger, type BaseLoggerOptions, type LogEntry } from '@metorial/outpost-logger';
+import { BaseLogger, type BaseLoggerOptions, type LogEntry } from '@metorial-outpost/logger';
 
 export type HttpLoggerBody = { body: BodyInit; headers?: Record<string, string> };
 

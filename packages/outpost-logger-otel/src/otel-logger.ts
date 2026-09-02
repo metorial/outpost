@@ -3,7 +3,7 @@ import {
   type BaseLoggerOptions,
   type LogEntry,
   type LogLevel
-} from '@metorial/outpost-logger';
+} from '@metorial-outpost/logger';
 import {
   SeverityNumber,
   type AnyValueMap,

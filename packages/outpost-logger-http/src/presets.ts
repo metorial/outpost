@@ -1,4 +1,4 @@
-import type { LogEntry } from '@metorial/outpost-logger';
+import type { LogEntry } from '@metorial-outpost/logger';
 import { HttpLogger, type HttpLoggerOptions } from './http-logger';
 
 export type SplunkLoggerOptions = Omit<HttpLoggerOptions, 'url' | 'formatBody'> & {
