@@ -1,0 +1,48 @@
+{
+  "name": "@metorial-outpost/status-page",
+  "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "Metorial",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsup && vite build",
+    "test": "vitest run --passWithNoTests",
+    "lint": "prettier src/**/*.{ts,tsx} --check"
+  },
+  "dependencies": {
+    "hono": "^4.10.6",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "@metorial-outpost/proxy": "workspace:*"
+  },
+  "devDependencies": {
+    "@metorial-outpost/tsconfig": "workspace:*",
+    "@types/bun": "latest",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "4.3.1",
+    "typescript": "5.8.2",
+    "vite": "5.4.21",
+    "vitest": "^3.1.2",
+    "tsup": "^7.1.0"
+  }
+}
