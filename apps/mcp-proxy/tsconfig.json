@@ -1,0 +1,10 @@
+{
+  "extends": "@metorial-outpost/tsconfig/base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@metorial/mcp-proxy": ["src/index.ts"]
+    }
+  },
+  "include": ["src", "examples"]
+}
