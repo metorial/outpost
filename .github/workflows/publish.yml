@@ -1,0 +1,67 @@
+name: 'Publish'
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  publish:
+    name: 'Publish'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Authenticate with npm
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install Packages
+        run: bun i
+
+      - name: Build Packages
+        run: bun run build
+
+      - name: Test
+        run: bun run test
+
+      - name: Publish
+        shell: bash
+        run: |
+          for package_dir in packages/*; do
+            [ -f "$package_dir/package.json" ] || continue
+
+            package_name=$(node -p "require('./$package_dir/package.json').name")
+            package_version=$(node -p "require('./$package_dir/package.json').version")
+            is_private=$(node -p "require('./$package_dir/package.json').private === true")
+
+            if [ "$is_private" = "true" ]; then
+              echo "Skipping private package $package_name"
+              continue
+            fi
+
+            if registry_output=$(npm view "$package_name@$package_version" version 2>&1); then
+              echo "$package_name@$package_version is already published"
+              continue
+            fi
+
+            if [[ "$registry_output" != *"E404"* ]]; then
+              echo "Could not determine whether $package_name@$package_version is published:" >&2
+              echo "$registry_output" >&2
+              exit 1
+            fi
+
+            echo "Publishing $package_name@$package_version"
+            npm publish --workspace="$package_dir" --access public
+          done
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
