@@ -5,7 +5,7 @@ import { createOutpostStatusPage } from './create-status-page';
 import type { OutpostStatusPageData } from './types';
 
 let testDir = dirname(fileURLToPath(import.meta.url));
-let fixtureDistDir = join(testDir, '__fixtures__', 'dist');
+let fixtureDistDir = join(testDir, '__fixtures__', 'built-page');
 
 let sampleData: OutpostStatusPageData = {
   outpostId: 'otp_123',
