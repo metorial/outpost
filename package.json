@@ -1,0 +1,25 @@
+{
+  "name": "@metorial-outpost/workspace",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "packageManager": "bun@1.2.15",
+  "workspaces": [
+    "packages/*",
+    "adapters/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "test": "bun run --filter='*' test",
+    "lint": "bun run --filter='*' lint",
+    "build": "turbo run --ui=stream build"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "typescript": "5.8.2",
+    "turbo": "^2.5.4"
+  },
+  "engines": {
+    "bun": ">=1.2.15"
+  }
+}
