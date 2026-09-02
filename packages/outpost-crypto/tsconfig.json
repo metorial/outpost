@@ -1,0 +1,4 @@
+{
+  "extends": "@metorial-outpost/tsconfig/base.json",
+  "include": ["src"]
+}
