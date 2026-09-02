@@ -1,0 +1,8 @@
+{
+  "extends": "@metorial-outpost/tsconfig/base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "jsx": "react-jsx"
+  },
+  "include": ["src"]
+}
