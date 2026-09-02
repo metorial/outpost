@@ -1,0 +1,39 @@
+{
+  "name": "@metorial-outpost/signature",
+  "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
+  "author": "Metorial",
+  "license": "Apache-2.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "test": "vitest run --passWithNoTests",
+    "lint": "prettier src/**/*.ts --check",
+    "build": "tsup"
+  },
+  "dependencies": {
+    "@metorial-outpost/crypto": "workspace:*"
+  },
+  "devDependencies": {
+    "@metorial-outpost/tsconfig": "workspace:*",
+    "typescript": "5.8.2",
+    "vitest": "^3.1.2",
+    "tsup": "^7.1.0"
+  }
+}
