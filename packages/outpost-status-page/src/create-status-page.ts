@@ -23,7 +23,7 @@ let FALLBACK_HTML = `<!doctype html>
     <h1>Metorial Outpost</h1>
     <p>
       The status page hasn't been built yet. Run <code>bun run build</code> in
-      <code>@metorial/outpost-status-page</code> to generate it.
+      <code>@metorial-outpost/status-page</code> to generate it.
     </p>
   </body>
 </html>`;
