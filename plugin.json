@@ -1,0 +1,10 @@
+{
+  "name": "metorial-outpost",
+  "description": "Skills for building, configuring, and deploying a Metorial Outpost, the self-hosted MCP proxy that forwards signed, authenticated traffic to Metorial from your own network.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Metorial",
+    "email": "hey@metorial.com"
+  },
+  "skills": "skills/"
+}

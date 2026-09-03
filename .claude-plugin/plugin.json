@@ -1,0 +1,24 @@
+{
+  "name": "metorial-outpost",
+  "description": "Skills for building, configuring, and deploying a Metorial Outpost, the self-hosted MCP proxy that forwards signed, authenticated traffic to Metorial from your own network.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Metorial",
+    "email": "hey@metorial.com"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Metorial Outpost",
+    "shortDescription": "Skills for building, configuring, and deploying a Metorial Outpost, the self-hosted MCP proxy that forwards signed, authenticated traffic to Metorial from your own network.",
+    "longDescription": "Metorial Outpost lets MCP clients and agents connect to a proxy inside your own network, which forwards their traffic to Metorial over a signed, authenticated channel. These skills cover the full path: registering an Outpost in the Metorial dashboard, writing the proxy with @metorial/mcp-proxy, configuring structured logging, and deploying it with Docker, Kubernetes, or another container platform.",
+    "capabilities": [
+      "Interactive",
+      "Write",
+      "Read"
+    ],
+    "brandColor": "#0099ff",
+    "composerIcon": "https://cdn.metorial.com/2025-06-13--14-59-55/logos/metorial/primary_logo/raw.svg",
+    "logo": "https://cdn.metorial.com/2025-06-13--14-59-55/logos/metorial/primary_logo/raw.svg",
+    "screenshots": []
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "metorial-outpost",
+  "interface": {
+    "displayName": "Metorial Outpost"
+  },
+  "plugins": [
+    {
+      "name": "metorial-outpost",
+      "category": "Productivity",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      }
+    }
+  ]
+}
