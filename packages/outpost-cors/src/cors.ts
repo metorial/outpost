@@ -45,12 +45,15 @@ let applyCorsHeaders = (
   headers.set('Access-Control-Max-Age', CORS_MAX_AGE);
 };
 
+let STALE_RESPONSE_HEADERS = ['content-encoding', 'content-length'];
+
 export let withCorsHeaders = (
   response: Response,
   origin: string | undefined,
   corsOrigins?: CorsOriginOption
 ): Response => {
   let headers = new Headers(response.headers);
+  for (let name of STALE_RESPONSE_HEADERS) headers.delete(name);
   applyCorsHeaders(headers, origin, corsOrigins);
   return new Response(response.body, {
     status: response.status,

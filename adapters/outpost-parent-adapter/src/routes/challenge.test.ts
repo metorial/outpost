@@ -77,6 +77,35 @@ describe('outpost-parent-adapter challengeHandler', () => {
     expect(init.service).toBe(OUTPOST_PROTOCOL_SERVICE);
   });
 
+  it(
+    "does not replay the upstream response's stale Content-Encoding/Content-Length -- " +
+      'fetch() already decompressed the body by the time we can see it, so those headers no ' +
+      'longer describe what we are about to send',
+    async () => {
+      let fetch: OutpostFetchFunction = vi.fn(
+        async () =>
+          new Response(JSON.stringify({ challenge_id: 'och_1' }), {
+            headers: {
+              'content-type': 'application/json',
+              'content-encoding': 'zstd',
+              'content-length': '9999'
+            }
+          })
+      ) as unknown as OutpostFetchFunction;
+      let app = mountApp(baseDeps({ fetch }));
+
+      let res = await app.request('/register/challenge', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: '{}'
+      });
+
+      expect(res.status).toBe(200);
+      expect(res.headers.get('content-encoding')).toBeNull();
+      expect(await res.json()).toEqual({ challenge_id: 'och_1' });
+    }
+  );
+
   it('captures a fresh proxy_context from its own connection for the first hop', async () => {
     let { fetch, calls } = buildFetchMock();
     let app = mountApp(baseDeps({ fetch, trustProxy: true }));

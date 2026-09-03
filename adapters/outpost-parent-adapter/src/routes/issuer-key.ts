@@ -1,6 +1,6 @@
 import type { CacheCompartment } from '@metorial-outpost/cache';
 import type { Context } from 'hono';
-import { forwardToParent, type ForwardToParentOptions } from '../forward';
+import { forwardToParent, replayableHeaders, type ForwardToParentOptions } from '../forward';
 
 export type IssuerKeyHandlerDeps = ForwardToParentOptions & {
   basePath: string;
@@ -12,16 +12,6 @@ type CachedIssuerKeyResponse = {
   headers: [string, string][];
   body: string;
 };
-
-let NON_REPLAYABLE_HEADERS = new Set([
-  'content-encoding',
-  'content-length',
-  'transfer-encoding',
-  'connection'
-]);
-
-let replayableHeaders = (headers: Headers): [string, string][] =>
-  [...headers].filter(([name]) => !NON_REPLAYABLE_HEADERS.has(name.toLowerCase()));
 
 export let issuerKeyHandler = (deps: IssuerKeyHandlerDeps) => async (c: Context) => {
   let kid = c.req.param('kid')!;

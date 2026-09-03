@@ -29,7 +29,7 @@ export let handleMcpPost = (
     deps.fetch(deps.targetUrl, {
       method: 'POST',
       headers: {
-        ...forwardableHeaders(c.req.raw.headers),
+        ...forwardableHeaders(c.req.raw.headers, ['content-encoding']),
         'content-type': 'application/json'
       },
       body: JSON.stringify(msg),

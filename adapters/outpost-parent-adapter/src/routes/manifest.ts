@@ -2,7 +2,7 @@ import type { CacheCompartment } from '@metorial-outpost/cache';
 import type { OutpostFetchFunction } from '@metorial-outpost/fetch';
 import { OUTPOST_PROTOCOL_SERVICE } from '@metorial-outpost/server';
 import type { Context } from 'hono';
-import { joinUrl } from '../forward';
+import { joinUrl, replayableHeaders } from '../forward';
 
 export type ManifestHandlerDeps = {
   endpoint: string;
@@ -16,16 +16,6 @@ type CachedManifestResponse = {
   headers: [string, string][];
   body: string;
 };
-
-let NON_REPLAYABLE_HEADERS = new Set([
-  'content-encoding',
-  'content-length',
-  'transfer-encoding',
-  'connection'
-]);
-
-let replayableHeaders = (headers: Headers): [string, string][] =>
-  [...headers].filter(([name]) => !NON_REPLAYABLE_HEADERS.has(name.toLowerCase()));
 
 export let manifestHandler = (deps: ManifestHandlerDeps) => async (c: Context) => {
   let outpostId = c.req.param('outpostId')!;

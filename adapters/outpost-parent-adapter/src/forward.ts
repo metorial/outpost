@@ -34,6 +34,16 @@ export let filterHeadersForResigning = (headers: Headers): Record<string, string
 export let joinUrl = (endpoint: string, path: string): string =>
   `${endpoint.replace(/\/+$/, '')}${path}`;
 
+let NON_REPLAYABLE_RESPONSE_HEADERS = new Set([
+  'content-encoding',
+  'content-length',
+  'transfer-encoding',
+  'connection'
+]);
+
+export let replayableHeaders = (headers: Headers): [string, string][] =>
+  [...headers].filter(([name]) => !NON_REPLAYABLE_RESPONSE_HEADERS.has(name.toLowerCase()));
+
 export let forwardToParent = async (
   options: ForwardToParentOptions,
   path: string,
