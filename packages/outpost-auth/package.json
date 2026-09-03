@@ -1,6 +1,6 @@
 {
   "name": "@metorial-outpost/auth",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publishConfig": {
     "access": "public"
   },
@@ -28,13 +28,13 @@
     "build": "tsup"
   },
   "dependencies": {
-    "@metorial-outpost/credential-envelope": "workspace:*",
-    "@metorial-outpost/crypto": "workspace:*",
-    "@metorial-outpost/logger": "workspace:*",
-    "@metorial-outpost/signature": "workspace:*"
+    "@metorial-outpost/credential-envelope": "0.1.1",
+    "@metorial-outpost/crypto": "0.1.1",
+    "@metorial-outpost/logger": "0.1.1",
+    "@metorial-outpost/signature": "0.1.1"
   },
   "devDependencies": {
-    "@metorial-outpost/tsconfig": "workspace:*",
+    "@metorial-outpost/tsconfig": "0.1.0",
     "@types/node": "^22.13.5",
     "typescript": "5.8.2",
     "vitest": "^3.1.2",

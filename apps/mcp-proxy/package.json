@@ -1,6 +1,6 @@
 {
   "name": "@metorial/mcp-proxy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publishConfig": {
     "access": "public"
   },
@@ -29,24 +29,24 @@
     "build": "tsup"
   },
   "dependencies": {
-    "@metorial-outpost/adapter": "workspace:*",
-    "@metorial-outpost/auth": "workspace:*",
-    "@metorial-outpost/cache": "workspace:*",
-    "@metorial-outpost/cors": "workspace:*",
-    "@metorial-outpost/credential-envelope": "workspace:*",
-    "@metorial-outpost/instance": "workspace:*",
-    "@metorial-outpost/logger": "workspace:*",
-    "@metorial-outpost/mcp": "workspace:*",
-    "@metorial-outpost/mcp-adapter": "workspace:*",
-    "@metorial-outpost/parent-adapter": "workspace:*",
-    "@metorial-outpost/proxy": "workspace:*",
+    "@metorial-outpost/adapter": "0.1.1",
+    "@metorial-outpost/auth": "0.1.1",
+    "@metorial-outpost/cache": "0.1.1",
+    "@metorial-outpost/cors": "0.1.1",
+    "@metorial-outpost/credential-envelope": "0.1.1",
+    "@metorial-outpost/instance": "0.1.1",
+    "@metorial-outpost/logger": "0.1.1",
+    "@metorial-outpost/mcp": "0.1.1",
+    "@metorial-outpost/mcp-adapter": "0.1.1",
+    "@metorial-outpost/parent-adapter": "0.1.1",
+    "@metorial-outpost/proxy": "0.1.1",
     "@modelcontextprotocol/sdk": "^1.25.2"
   },
   "devDependencies": {
-    "@metorial-outpost/crypto": "workspace:*",
-    "@metorial-outpost/logger-console": "workspace:*",
-    "@metorial-outpost/logger-http": "workspace:*",
-    "@metorial-outpost/tsconfig": "workspace:*",
+    "@metorial-outpost/crypto": "0.1.1",
+    "@metorial-outpost/logger-console": "0.1.1",
+    "@metorial-outpost/logger-http": "0.1.1",
+    "@metorial-outpost/tsconfig": "0.1.0",
     "typescript": "5.8.2",
     "vitest": "^3.1.2",
     "tsup": "^7.1.0"

@@ -1,6 +1,6 @@
 {
   "name": "@metorial-outpost/mcp-adapter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publishConfig": {
     "access": "public"
   },
@@ -29,18 +29,18 @@
   },
   "dependencies": {
     "hono": "^4.10.6",
-    "@metorial-outpost/adapter": "workspace:*",
-    "@metorial-outpost/cors": "workspace:*",
-    "@metorial-outpost/fetch": "workspace:*",
-    "@metorial-outpost/logger": "workspace:*",
-    "@metorial-outpost/mcp": "workspace:*",
-    "@metorial-outpost/proxy": "workspace:*",
-    "@metorial-outpost/server": "workspace:*",
-    "@metorial-outpost/signature": "workspace:*",
+    "@metorial-outpost/adapter": "0.1.1",
+    "@metorial-outpost/cors": "0.1.1",
+    "@metorial-outpost/fetch": "0.1.1",
+    "@metorial-outpost/logger": "0.1.1",
+    "@metorial-outpost/mcp": "0.1.1",
+    "@metorial-outpost/proxy": "0.1.1",
+    "@metorial-outpost/server": "0.1.1",
+    "@metorial-outpost/signature": "0.1.1",
     "@modelcontextprotocol/sdk": "^1.25.2"
   },
   "devDependencies": {
-    "@metorial-outpost/tsconfig": "workspace:*",
+    "@metorial-outpost/tsconfig": "0.1.0",
     "typescript": "5.8.2",
     "vitest": "^3.1.2",
     "tsup": "^7.1.0"

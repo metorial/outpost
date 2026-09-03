@@ -12,7 +12,8 @@
   "scripts": {
     "test": "bun run --filter='*' test",
     "lint": "bun run --filter='*' lint",
-    "build": "turbo run --ui=stream build"
+    "build": "turbo run --ui=stream build",
+    "sync-versions": "bun scripts/sync-workspace-versions.ts"
   },
   "devDependencies": {
     "prettier": "^3.5.3",

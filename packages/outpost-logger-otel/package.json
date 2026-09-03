@@ -1,6 +1,6 @@
 {
   "name": "@metorial-outpost/logger-otel",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publishConfig": {
     "access": "public"
   },
@@ -28,13 +28,13 @@
     "build": "tsup"
   },
   "dependencies": {
-    "@metorial-outpost/logger": "workspace:*"
+    "@metorial-outpost/logger": "0.1.1"
   },
   "peerDependencies": {
     "@opentelemetry/api-logs": "^0.221.0"
   },
   "devDependencies": {
-    "@metorial-outpost/tsconfig": "workspace:*",
+    "@metorial-outpost/tsconfig": "0.1.0",
     "@opentelemetry/api-logs": "^0.221.0",
     "typescript": "5.8.2",
     "vitest": "^3.1.2",
