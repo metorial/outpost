@@ -37,7 +37,7 @@ jobs:
       - name: Publish
         shell: bash
         run: |
-          for package_dir in packages/*; do
+          for package_dir in packages/* adapters/* apps/*; do
             [ -f "$package_dir/package.json" ] || continue
 
             package_name=$(node -p "require('./$package_dir/package.json').name")
