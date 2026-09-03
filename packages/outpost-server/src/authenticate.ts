@@ -150,6 +150,11 @@ export let verifyOutpostRequest = async (
   let bodyBytes = new Uint8Array(await c.req.raw.clone().arrayBuffer());
   let url = new URL(c.req.url);
 
+  let forwardedProto = c.req.header('x-forwarded-proto')?.split(',')[0]?.trim();
+  let forwardedHost = c.req.header('x-forwarded-host')?.split(',')[0]?.trim();
+  let scheme = forwardedProto || url.protocol.replace(/:$/, '');
+  let authority = forwardedHost || url.host;
+
   let instancePublicKey = await Ed25519.importPublicKey(
     base64url.decode(tokenData.instance_public_key)
   );
@@ -164,8 +169,8 @@ export let verifyOutpostRequest = async (
       requestId: metadata.request_id,
       service: metadata.service,
       method: c.req.method,
-      scheme: url.protocol.replace(/:$/, ''),
-      authority: url.host,
+      scheme,
+      authority,
       path: url.pathname,
       query: url.search.replace(/^\?/, ''),
       signedHeaders,

@@ -1,6 +1,5 @@
 import { base64url, Ed25519 } from '@metorial-outpost/crypto';
 import {
-  buildRequestSignatureBase,
   canonicalizeSignedHeaders,
   encodeSignatureHeader,
   generateRequestId,
@@ -81,6 +80,9 @@ describe('authenticate', () => {
       path?: string;
       method?: string;
       body?: string;
+      scheme?: string;
+      authority?: string;
+      forwardedHeaders?: Record<string, string>;
     } = {}
   ) => {
     let method = overrides.method ?? 'GET';
@@ -100,8 +102,8 @@ describe('authenticate', () => {
       requestId,
       service: SERVICE,
       method,
-      scheme: 'http',
-      authority: 'localhost',
+      scheme: overrides.scheme ?? 'http',
+      authority: overrides.authority ?? 'localhost',
       path,
       query: '',
       signedHeaders,
@@ -133,6 +135,8 @@ describe('authenticate', () => {
       headers[OUTPOST_INSTANCE_TOKEN_HEADER] =
         overrides.instanceTokenOverride ?? instanceToken;
     }
+
+    Object.assign(headers, overrides.forwardedHeaders);
 
     return new Request(`http://localhost${path}`, {
       method,
@@ -185,6 +189,40 @@ describe('authenticate', () => {
     expect(body.auth.credentialId).toBe(CREDENTIAL_ID);
     expect(body.auth.service).toBe(SERVICE);
     expect(body.auth.outpostChain).toEqual([]);
+  });
+
+  it(
+    'authenticates a request signed against its public https URL even though this ' +
+      'process only ever sees plain HTTP behind a TLS-terminating proxy',
+    async () => {
+      let app = buildApp();
+      let res = await app.request(
+        await buildRequest({
+          scheme: 'https',
+          authority: 'api.metorial-staging.com',
+          forwardedHeaders: {
+            'x-forwarded-proto': 'https',
+            'x-forwarded-host': 'api.metorial-staging.com'
+          }
+        })
+      );
+
+      expect(res.status).toBe(200);
+    }
+  );
+
+  it('rejects a request whose signed scheme/authority do not match X-Forwarded-*', async () => {
+    let app = buildApp();
+    let res = await app.request(
+      await buildRequest({
+        scheme: 'https',
+        authority: 'api.metorial-staging.com',
+        forwardedHeaders: { 'x-forwarded-proto': 'http' }
+      })
+    );
+
+    expect(res.status).toBe(401);
+    expect((await res.json()).error).toBe('invalid_signature');
   });
 
   it('rejects a request missing the Metorial-Outpost-Id header', async () => {

@@ -7,6 +7,7 @@ import { base64url, Ed25519 } from '@metorial-outpost/crypto';
 import { noopLogger, type Logger } from '@metorial-outpost/logger';
 import {
   canonicalizeSignedHeaders,
+  DEFAULT_REQUIRED_SIGNED_HEADERS,
   encodeSignatureHeader,
   generateRequestId,
   hashBody,
@@ -263,7 +264,11 @@ export class OutpostAuth {
         ([name]) => !OUTPOST_SIGNATURE_HEADER_NAMES.includes(name.toLowerCase())
       )
     );
-    let signedHeaders = canonicalizeSignedHeaders(headers, Object.keys(headers));
+
+    let signableHeaderNames = Object.keys(headers).filter(name =>
+      DEFAULT_REQUIRED_SIGNED_HEADERS.includes(name.toLowerCase())
+    );
+    let signedHeaders = canonicalizeSignedHeaders(headers, signableHeaderNames);
 
     let bodyBytes =
       typeof input.body == 'string'
