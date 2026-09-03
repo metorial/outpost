@@ -87,14 +87,17 @@ let redactApiKey = mcpMiddleware({
   handle: async (message, call, ctx) => {
     assertToolName(message, 'call_external_api');
     let { apiKey, ...argumentsWithoutKey } = message.params.arguments ?? {};
-    if (apiKey !== undefined) ctx.logger.info('removed API key', { connectionId: ctx.connectionId });
+    if (apiKey !== undefined)
+      ctx.logger.info('removed API key', { connectionId: ctx.connectionId });
     return call({ ...message, params: { ...message.params, arguments: argumentsWithoutKey } });
   }
 });
 
 await McpProxy.create({
-  outpostCredential: process.env.METORIAL_OUTPOST_CREDENTIAL!, baseUrl: 'https://metorial-outpost.company.com',
-  proxy: { port: 8080 }, middleware: [redactApiKey]
+  outpostCredential: process.env.METORIAL_OUTPOST_CREDENTIAL!,
+  baseUrl: 'https://metorial-outpost.company.com',
+  proxy: { port: 8080 },
+  middleware: [redactApiKey]
 });
 ```
 
@@ -110,7 +113,7 @@ import { assertToolName, errorResponse, mcpMiddleware } from '@metorial/mcp-prox
 let blockDelete = mcpMiddleware({
   name: 'block-delete-database',
   handle: async message => {
-    // This middleware only applies to delete_database calls. 
+    // This middleware only applies to delete_database calls.
     // Other messages will be passed through unchanged.
     assertToolName(message, 'delete_database');
 
@@ -145,16 +148,16 @@ let redactResults = mcpMiddleware({
 
 ## Bundled examples
 
-| Example | What it demonstrates |
-| --- | --- |
-| [01: basic proxy](../../../apps/mcp-proxy/examples/01-basic-proxy.ts) | Minimal proxy and graceful shutdown. |
-| [01: nested proxy](../../../apps/mcp-proxy/examples/01-basic-proxy_nested.ts) | Proxying through a parent Outpost. |
-| [02: redact tool arguments](../../../apps/mcp-proxy/examples/02-redact-tool-arguments.ts) | Removing a sensitive tool argument before forwarding. |
-| [03: redact tool result](../../../apps/mcp-proxy/examples/03-redact-tool-result.ts) | Scrubbing a field from an upstream tool result. |
-| [04: block dangerous tool](../../../apps/mcp-proxy/examples/04-block-dangerous-tool.ts) | Rejecting a call with `errorResponse()` without contacting the server. |
-| [05: redact prompt arguments](../../../apps/mcp-proxy/examples/05-redact-prompt-arguments.ts) | Applying the same pattern to `prompts/get`. |
-| [06: restrict resources](../../../apps/mcp-proxy/examples/06-restrict-resource-access.ts) | Allow-listing resource URI prefixes. |
-| [07: audit logging](../../../apps/mcp-proxy/examples/07-audit-logging.ts) | Recording tools, prompts, and resources to console, Datadog, and Splunk. |
-| [08: compose middleware](../../../apps/mcp-proxy/examples/08-compose-multiple-middleware.ts) | Ordering audit, blocking, and result-redaction policies. |
+| Example                                                                                                                            | What it demonstrates                                                     |
+| ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| [01: basic proxy](https://github.com/metorial/outpost/blob/main/apps/mcp-proxy/examples/01-basic-proxy.ts)                         | Minimal proxy and graceful shutdown.                                     |
+| [01: nested proxy](https://github.com/metorial/outpost/blob/main/apps/mcp-proxy/examples/01-basic-proxy_nested.ts)                 | Proxying through a parent Outpost.                                       |
+| [02: redact tool arguments](https://github.com/metorial/outpost/blob/main/apps/mcp-proxy/examples/02-redact-tool-arguments.ts)     | Removing a sensitive tool argument before forwarding.                    |
+| [03: redact tool result](https://github.com/metorial/outpost/blob/main/apps/mcp-proxy/examples/03-redact-tool-result.ts)           | Scrubbing a field from an upstream tool result.                          |
+| [04: block dangerous tool](https://github.com/metorial/outpost/blob/main/apps/mcp-proxy/examples/04-block-dangerous-tool.ts)       | Rejecting a call with `errorResponse()` without contacting the server.   |
+| [05: redact prompt arguments](https://github.com/metorial/outpost/blob/main/apps/mcp-proxy/examples/05-redact-prompt-arguments.ts) | Applying the same pattern to `prompts/get`.                              |
+| [06: restrict resources](https://github.com/metorial/outpost/blob/main/apps/mcp-proxy/examples/06-restrict-resource-access.ts)     | Allow-listing resource URI prefixes.                                     |
+| [07: audit logging](https://github.com/metorial/outpost/blob/main/apps/mcp-proxy/examples/07-audit-logging.ts)                     | Recording tools, prompts, and resources to console, Datadog, and Splunk. |
+| [08: compose middleware](https://github.com/metorial/outpost/blob/main/apps/mcp-proxy/examples/08-compose-multiple-middleware.ts)  | Ordering audit, blocking, and result-redaction policies.                 |
 
 Next: [3. Logging](./03-logging.md).
