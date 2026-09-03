@@ -5,7 +5,26 @@ description: Build, configure, or secure a Metorial MCP Proxy, including lifecyc
 
 # Outpost MCP Proxy
 
-Use `McpProxy.create()` from `@metorial/mcp-proxy` for an MCP-capable Outpost. Read the [MCP proxy guide](../../../docs/mcp-proxy.md) before implementation and choose the closest standalone example in `apps/mcp-proxy/examples/` as the starting point.
+Use `McpProxy.create()` from `@metorial/mcp-proxy` for an MCP-capable Outpost. This skill bundles
+the full step-by-step guide as resources; read the file for the task at hand before implementing,
+and choose the closest standalone example in `apps/mcp-proxy/examples/` as a starting point.
+
+## Resources
+
+- [resources/README.md](resources/README.md): guide overview and the order of steps.
+- [resources/01-create-an-outpost.md](resources/01-create-an-outpost.md): registering an Outpost,
+  granting it access, and creating the credential in the Metorial dashboard.
+- [resources/02-setup.md](resources/02-setup.md): installing `@metorial/mcp-proxy`, writing the
+  proxy script, the middleware model, and the bundled examples table. Read this before
+  implementing proxy or middleware behavior.
+- [resources/03-logging.md](resources/03-logging.md): wiring a logger into the proxy and the
+  built-in status endpoint.
+- [resources/04-docker.md](resources/04-docker.md): packaging the proxy into a container image
+  with Bun or Node.
+- [resources/05-deploy-kubernetes.md](resources/05-deploy-kubernetes.md): Kubernetes
+  `Secret`/`Deployment`/`Service` manifests and `baseUrl`/instance-identity considerations.
+- [resources/06-deploy-other-platforms.md](resources/06-deploy-other-platforms.md): systemd, AWS
+  ECS/Fargate, Google Cloud Run, Fly.io, and Railway.
 
 ## Create and operate a proxy
 
@@ -22,4 +41,8 @@ Use `McpProxy.create()` from `@metorial/mcp-proxy` for an MCP-capable Outpost. R
 - Keep policies small and single-purpose. Order audit logging before blocking when denied attempts must be recorded; apply redaction before data leaves the intended trust boundary. Check `ctx.direction` when a transformation must affect only responses, and use `ctx.logger` with structured `connectionId` fields for audit events.
 - Treat tool arguments and results as sensitive by default. Avoid placing their raw contents in logs; redact or allow-list fields before forwarding where the policy requires it.
 
-Read `apps/mcp-proxy/src/` and its tests when changing proxy or middleware behavior. Use the guide's examples for argument/result redaction, dangerous-tool blocking, resource restrictions, audit logging, and composed middleware.
+Read `apps/mcp-proxy/src/` and its tests when changing proxy or middleware behavior. Use the
+examples in `resources/02-setup.md` for argument/result redaction, dangerous-tool blocking,
+resource restrictions, audit logging, and composed middleware. For deployment questions, go
+straight to `resources/04-docker.md` and the relevant `resources/05-*`/`resources/06-*` file
+rather than guessing at platform mechanics.

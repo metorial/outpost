@@ -5,7 +5,7 @@ description: Configure, extend, or troubleshoot logging for a Metorial Outpost i
 
 # Outpost Logging
 
-Use the Outpost logger packages rather than introducing an unrelated logging abstraction. Read the [logging guide](../../../docs/logging.md) before changing logger configuration; inspect the relevant package source when changing a logger implementation.
+Use the Outpost logger packages rather than introducing an unrelated logging abstraction. Read the [logging guide](../../docs/logging.md) before changing logger configuration; inspect the relevant package source when changing a logger implementation.
 
 ## Configure the runtime
 
@@ -20,4 +20,4 @@ Use the Outpost logger packages rather than introducing an unrelated logging abs
 - HTTP logger delivery errors belong in its `onError` callback; do not let telemetry failures fail an Outpost request path.
 - Do not log credentials, API keys, authorization headers, or unredacted sensitive tool arguments/results. Bind stable identifiers such as `connectionId`, adapter name, and environment instead.
 
-For logger API shapes and package behavior, inspect `packages/outpost-logger*/src/`. For an MCP audit-log pattern, read [the MCP proxy guide](../../../docs/mcp-proxy.md) and its linked `07-audit-logging.ts` example.
+For logger API shapes and package behavior, inspect `packages/outpost-logger*/src/`. For an MCP audit-log pattern, read [the MCP proxy logging guide](../../docs/mcp-proxy/03-logging.md) and its linked `07-audit-logging.ts` example.
