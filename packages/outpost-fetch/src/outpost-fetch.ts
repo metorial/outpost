@@ -172,7 +172,7 @@ export class OutpostFetch {
         ...requestInit,
         method: currentMethod,
         headers,
-        body: currentBody,
+        body: currentBody as BodyInit | undefined,
         redirect: 'manual'
       });
       let location = response.headers.get('location');
