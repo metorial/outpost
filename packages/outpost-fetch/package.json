@@ -37,6 +37,6 @@
     "@metorial-outpost/tsconfig": "0.1.0",
     "typescript": "5.9.3",
     "vitest": "^4.1.11",
-    "tsup": "^7.2.0"
+    "tsup": "^8.5.1"
   }
 }
