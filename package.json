@@ -16,9 +16,9 @@
     "sync-versions": "bun scripts/sync-workspace-versions.ts"
   },
   "devDependencies": {
-    "prettier": "^3.5.3",
-    "typescript": "5.8.2",
-    "turbo": "^2.5.4"
+    "prettier": "^3.9.10",
+    "typescript": "5.9.3",
+    "turbo": "^2.11.7"
   },
   "engines": {
     "bun": ">=1.2.15"

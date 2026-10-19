@@ -29,20 +29,20 @@
     "lint": "prettier src/**/*.{ts,tsx} --check"
   },
   "dependencies": {
-    "hono": "^4.10.6",
-    "react": "19.1.1",
-    "react-dom": "19.1.1",
+    "hono": "^4.13.13",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
     "@metorial-outpost/proxy": "0.1.1"
   },
   "devDependencies": {
     "@metorial-outpost/tsconfig": "0.1.0",
     "@types/bun": "latest",
-    "@types/react": "19.2.14",
-    "@types/react-dom": "19.2.3",
-    "@vitejs/plugin-react": "4.3.1",
-    "typescript": "5.8.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "4.7.0",
+    "typescript": "5.9.3",
     "vite": "5.4.21",
-    "vitest": "^3.1.2",
-    "tsup": "^7.1.0"
+    "vitest": "^3.2.7",
+    "tsup": "^7.2.0"
   }
 }
