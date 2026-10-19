@@ -46,7 +46,7 @@
     "@types/bun": "latest",
     "hono": "^4.13.13",
     "typescript": "5.9.3",
-    "vitest": "^3.2.7",
+    "vitest": "^4.1.11",
     "tsup": "^7.2.0"
   }
 }

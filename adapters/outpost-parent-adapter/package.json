@@ -42,7 +42,7 @@
     "@metorial-outpost/cache-local": "0.1.1",
     "@metorial-outpost/tsconfig": "0.1.0",
     "typescript": "5.9.3",
-    "vitest": "^3.2.7",
+    "vitest": "^4.1.11",
     "tsup": "^7.2.0"
   }
 }
