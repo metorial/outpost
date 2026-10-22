@@ -392,7 +392,7 @@ describe('authenticate', () => {
       expect(res.status).toBe(200);
     });
 
-    it('passes the resolver the outpost/instance/credential ids from the token', async () => {
+    it('passes the resolver the outpost/instance/credential ids and instance key from the token', async () => {
       let seen: any;
       let resolver = {
         resolveInstanceAuthorization: async (
@@ -408,7 +408,8 @@ describe('authenticate', () => {
       expect(seen).toEqual({
         outpostId: OUTPOST_ID,
         instanceId: INSTANCE_ID,
-        credentialId: CREDENTIAL_ID
+        credentialId: CREDENTIAL_ID,
+        instancePublicKey: await Ed25519.exportPublicKey(instance.publicKey)
       });
     });
 

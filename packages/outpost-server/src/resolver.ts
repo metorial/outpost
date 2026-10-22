@@ -44,5 +44,6 @@ export interface OutpostRegistrationResolver {
     outpostId: string;
     instanceId: string;
     credentialId: string;
+    instancePublicKey: Uint8Array;
   }): Promise<ResolvedInstanceAuthorization>;
 }

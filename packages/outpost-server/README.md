@@ -88,11 +88,17 @@ let outpostServer = createOutpostServer({
 
       return { status: 'ok', manifest: await buildManifestFor(outpost) };
     },
-    async resolveInstanceAuthorization({ outpostId, instanceId, credentialId }) {
+    async resolveInstanceAuthorization({
+      outpostId,
+      instanceId,
+      credentialId,
+      instancePublicKey
+    }) {
       let instance = await db.outpostInstance.findFirst({
         where: { id: instanceId, outpostId, credentialId }
       });
       if (!instance) return { status: 'unknown' };
+      if (!sameBytes(instance.publicKey, instancePublicKey)) return { status: 'unknown' };
       if (instance.status != 'active') return { status: 'instance_disabled' };
 
       let outpost = await db.outpost.findUnique({ where: { id: outpostId } });
@@ -249,7 +255,9 @@ let authed = await verifyOutpostRequest({ tokens, service: 'my.service', resolve
 on its own (spec §42 Step 5): `resolver.resolveInstanceAuthorization` is also checked, rejecting
 with `instance_disabled`/`outpost_disabled` if either has since been disabled, or
 `invalid_instance_token` if the instance/credential/outpost combination in the token doesn't
-correspond to any real, currently-matching registration. This is how a disabled or revoked
+correspond to any real, currently-matching registration. The resolver also receives the token's
+`instancePublicKey`; reporting `unknown` when it differs from the instance's current key locks out
+a token issued before the instance re-registered with a new key. This is how a disabled or revoked
 Instance/Outpost is locked out immediately, without waiting for its (potentially long-lived)
 Instance Token to expire. Omit `resolver` where none is available (e.g. an intermediate Outpost
 relaying nested traffic with no local database) — the check is then left to whichever authority

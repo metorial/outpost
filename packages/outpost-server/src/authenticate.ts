@@ -80,11 +80,14 @@ export let verifyOutpostRequest = async (
     throw new OutpostServerError('outpost_mismatch');
   }
 
+  let instancePublicKeyBytes = base64url.decode(tokenData.instance_public_key);
+
   if (options.resolver) {
     let authorization = await options.resolver.resolveInstanceAuthorization({
       outpostId: tokenData.outpost_id,
       instanceId: tokenData.instance_id,
-      credentialId: tokenData.credential_id
+      credentialId: tokenData.credential_id,
+      instancePublicKey: instancePublicKeyBytes
     });
 
     if (authorization.status == 'unknown')
@@ -155,9 +158,7 @@ export let verifyOutpostRequest = async (
   let scheme = forwardedProto || url.protocol.replace(/:$/, '');
   let authority = forwardedHost || url.host;
 
-  let instancePublicKey = await Ed25519.importPublicKey(
-    base64url.decode(tokenData.instance_public_key)
-  );
+  let instancePublicKey = await Ed25519.importPublicKey(instancePublicKeyBytes);
 
   let verifiedSignature = await verifyRequestSignature(
     instancePublicKey,
